@@ -117,6 +117,7 @@ func (db *DiaryBook) AddDiary(diary *Diary) {
 		}
 
 		tailBytes := b.Get([]byte(tailKey))
+		//fmt.Println(tailKey)
 		tail := DeserializeDiary(tailBytes)
 		//fmt.Println("fuck")
 		//fmt.Println(tail)
@@ -130,15 +131,6 @@ func (db *DiaryBook) AddDiary(diary *Diary) {
 		diary.PrevID = pre.ID
 		tail.PrevID = diary.ID
 		tail.Timestamp = time.Now().Unix()
-
-		//fmt.Println("add diary:")
-		//fmt.Println(diary)
-		//
-		//fmt.Println("pre:")
-		//fmt.Println(pre)
-		//
-		//fmt.Println("next:")
-		//fmt.Println(tail)
 
 		// 更新pre(因为pre的数据有变)
 		err := b.Put(pre.ID, pre.Serialize())

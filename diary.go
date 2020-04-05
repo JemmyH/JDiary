@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/gob"
 	"fmt"
 	"log"
@@ -63,14 +64,16 @@ func (d *Diary) Serialize() []byte {
 		log.Panic(err)
 	}
 	//return encoded.Bytes()
-	return Base58Encode(encoded.Bytes())
+	//return Base58Encode(encoded.Bytes())
+	return []byte(base64.StdEncoding.EncodeToString(encoded.Bytes()))
 }
 func DeserializeDiary(b []byte) *Diary {
 	var diary Diary
 
-	decoder := gob.NewDecoder(bytes.NewReader(Base58Decode(b)))
+	d,err := base64.StdEncoding.DecodeString(string(b))
+	decoder := gob.NewDecoder(bytes.NewReader(d))
 
-	err := decoder.Decode(&diary)
+	err = decoder.Decode(&diary)
 	if err != nil {
 		log.Panic(err)
 	}
