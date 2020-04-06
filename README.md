@@ -14,6 +14,16 @@ cd JDiary
 go build -a -v -o diary *.go
 chmod a+x ./diary
 
+# 或者直接下载已经编译好的release包，放到PATH中，并给予其可执行权限
+```bash
+# 下载二进制包 `diary`
+wget https://github.com/JemmyH/JDiary/releases/download/v1.0/diary
+# 给予可执行权限
+mv diary /usr/local/bin/ && chmod a+x /usr/local/bin/diary
+# 之后就可以使用了
+# 输入 `diary` 即可看到使用方式
+```
+
 # 使用
 Usage:
   create 创建一个日记本,并指定Owner
